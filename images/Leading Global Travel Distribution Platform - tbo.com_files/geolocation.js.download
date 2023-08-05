@@ -1,0 +1,40 @@
+
+function httpGet(theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+}
+
+function setGeolocation(jsonString) {
+    try {
+        var obj = JSON.parse(jsonString)
+        if (!(obj == undefined || obj.data == undefined || obj.data.location == undefined || obj.data.location.country == undefined || obj.data.location.country.alpha2 == undefined)) {
+            localStorage.setItem('user_country', obj.data.location.country.alpha2)
+        }
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+function applyCss(country) {
+    if (country == null)
+        country = '';
+    if (country == 'IN') {
+        $('#IN').css({ 'display': 'inline-block' });
+        $('#Others').css({ 'display': 'none' });
+    }
+    else {
+        $('#IN').css({ 'display': 'none' });
+        $('#Others').css({ 'display': 'inline-block' });
+    };
+
+
+    //if (country == 'BH' || country == 'EG' || country == 'US' || country == 'KW' || country == 'OM' || country == 'QA' || country == 'SA' || country == 'TR' || country == 'AE' || country == 'KE' || country == 'ZA') {
+    //    $('#Reward, #Mainbanner').css({ 'display': 'flex' });
+    //}
+    //else {
+    //    $('#Bookabed').css({ 'display': 'block' });
+    //}
+}
